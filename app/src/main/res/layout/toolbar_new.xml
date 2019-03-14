@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/colorPrimary">
+
+    <ImageButton
+        android:id="@+id/nav_item_left"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_margin="8dp"
+        android:background="#00000000"
+        android:src="@mipmap/calendar"/>
+
+    <TextView
+        android:id="@+id/nav_title"
+        android:text="2019-11-11"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:textFontWeight="10"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <ImageButton
+        android:id="@+id/nav_item_right"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_margin="8dp"
+        android:background="#00000000"
+        android:src="@mipmap/search"/>
+
+</LinearLayout>

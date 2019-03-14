@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tabbar_new"
+        android:icon="@drawable/tabbar_new"
+        android:title="最新"/>
+
+    <item
+        android:id="@+id/tabbar_category"
+        android:icon="@drawable/tabbar_category"
+        android:title="分类"/>
+
+    <item
+        android:id="@+id/tabbar_girl"
+        android:icon="@drawable/tabbar_girl"
+        android:title="妹纸"/>
+
+    <item
+        android:id="@+id/tabbar_like"
+        android:icon="@drawable/tabbar_like"
+        android:title="收藏"/>
+
+</menu>
