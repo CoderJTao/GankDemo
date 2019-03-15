@@ -1,5 +1,6 @@
 package com.jtao.gankdemo.Activity.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +14,19 @@ import com.jtao.gankdemo.R;
 
 public class GirlFragment extends Fragment {
 
+    private Context mContext;
+
     private String TAG = this.getClass().toString();
+
+    public GirlFragment() {
+
+    }
+
+    public static GirlFragment newInstance(Context context) {
+        GirlFragment f = new GirlFragment();
+        f.mContext = context;
+        return f;
+    }
 
     @Nullable
     @Override

@@ -61,10 +61,10 @@ public class MainActivity extends BaseActivity {
     private void initView() {
 
         // init fragment
-        newFragment = new NewFragment();
-        categoryFragment = new CategoryFragment();
-        girlFragment = new GirlFragment();
-        likeFragment = new LikeFragment();
+        newFragment = NewFragment.newInstance(this);
+        categoryFragment = CategoryFragment.newInstance(this);
+        girlFragment = GirlFragment.newInstance(this);
+        likeFragment = LikeFragment.newInstance(this);
         fragments = new Fragment[]{newFragment, categoryFragment, girlFragment, likeFragment};
         lastSelectedFragment = 0;
 

@@ -6,32 +6,32 @@ import java.util.List;
 
 public class NewsSubMoshi {
     @Json(name = "_id")
-    String newsId;
+    public String newsId;
 
     @Json(name = "createdAt")
-    String createdAt;
+    public String createdAt;
 
     @Json(name = "desc")
-    String desc;
+    public String desc;
 
     @Json(name = "images")
-    List<String> images;
+    public List<String> images;
 
     @Json(name = "publishedAt")
-    String publishedAt;
+    public String publishedAt;
 
     @Json(name = "source")
-    String source;
+    public String source;
 
     @Json(name = "type")
-    String type;
+    public String type;
 
     @Json(name = "url")
-    String url;
+    public String url;
 
     @Json(name = "used")
-    boolean used;
+    public boolean used;
 
     @Json(name = "who")
-    String who;
+    public String who;
 }

@@ -1,20 +1,22 @@
 package com.jtao.gankdemo.Activity.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
+import com.jtao.gankdemo.Activity.MainActivity;
 import com.jtao.gankdemo.Activity.Model.NewsMoshi;
 import com.jtao.gankdemo.Activity.Util.NetworkService;
 import com.jtao.gankdemo.R;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +34,8 @@ import okhttp3.Response;
 
 public class NewFragment extends Fragment {
 
+    private static Context mContext;
+
     private String TAG = this.getClass().toString();
 
     private Unbinder unbinder;
@@ -40,8 +44,20 @@ public class NewFragment extends Fragment {
 
     private NewsMoshi newsData;
 
+    private NewsAdapter newsAdapter;
+
     @BindView(R.id.newRecyclerView)
     RecyclerView newRecyclerView;
+
+    public NewFragment() {
+
+    }
+
+    public static NewFragment newInstance(Context context) {
+        NewFragment f = new NewFragment();
+        f.mContext = context;
+        return f;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +67,7 @@ public class NewFragment extends Fragment {
 
         dateLists = new ArrayList<>();
 
-        initData();
+
     }
 
     @Nullable
@@ -63,7 +79,20 @@ public class NewFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, view);
 
+        initView();
+
+        initData();
+
         return view;
+    }
+
+    private void initView() {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext);
+        ((LinearLayoutManager) manager).setOrientation(LinearLayoutManager.VERTICAL);
+        newRecyclerView.setLayoutManager(manager);
+
+        newsAdapter = new NewsAdapter(mContext);
+        newRecyclerView.setAdapter(newsAdapter);
     }
 
 
@@ -82,6 +111,8 @@ public class NewFragment extends Fragment {
                     JSONObject object1 = object.getJSONObject("results");
 
                     newsData = new NewsMoshi(categories, object1);
+
+                    newsAdapter.addData(newsData);
 
                 } catch (Exception e) {
                     e.printStackTrace();
