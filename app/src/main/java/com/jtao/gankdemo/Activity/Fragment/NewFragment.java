@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
+import com.jtao.gankdemo.Activity.ItemDecoration.NewsItemDecoration;
 import com.jtao.gankdemo.Activity.MainActivity;
 import com.jtao.gankdemo.Activity.Model.NewsMoshi;
 import com.jtao.gankdemo.Activity.Util.NetworkService;
@@ -45,6 +46,7 @@ public class NewFragment extends Fragment {
     private NewsMoshi newsData;
 
     private NewsAdapter newsAdapter;
+    private NewsItemDecoration newsItemDecoration;
 
     @BindView(R.id.newRecyclerView)
     RecyclerView newRecyclerView;
@@ -91,6 +93,8 @@ public class NewFragment extends Fragment {
         ((LinearLayoutManager) manager).setOrientation(LinearLayoutManager.VERTICAL);
         newRecyclerView.setLayoutManager(manager);
 
+        newRecyclerView.addItemDecoration(newsItemDecoration = new NewsItemDecoration((mContext)));
+
         newsAdapter = new NewsAdapter(mContext);
         newRecyclerView.setAdapter(newsAdapter);
     }
@@ -113,6 +117,7 @@ public class NewFragment extends Fragment {
                     newsData = new NewsMoshi(categories, object1);
 
                     newsAdapter.addData(newsData);
+                    newsItemDecoration.setData(newsData);
 
                 } catch (Exception e) {
                     e.printStackTrace();
