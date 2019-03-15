@@ -47,7 +47,7 @@ public class NewsMoshi {
 
     public List<String> tagsLists;
     public Map<String, List<NewsSubMoshi>> newsMap;
-
+    public List<NewsSubMoshi> newsList;
 
     public NewsMoshi(JSONArray categoryList, JSONObject object) throws JSONException, IOException {
         this.mObject = object;
@@ -62,6 +62,7 @@ public class NewsMoshi {
         }
 
         newsMap = new HashMap<String, List<NewsSubMoshi>>();
+        newsList = new ArrayList<>();
         setSubModels();
     }
 
@@ -75,7 +76,6 @@ public class NewsMoshi {
 
             JSONArray lists = mObject.getJSONArray(key);
 
-            List<NewsSubMoshi> subLists = new ArrayList<>();
             for (int j = 0; j < lists.length(); j++) {
                 String jsonStr = lists.getJSONObject(j).toString();
 
@@ -83,9 +83,9 @@ public class NewsMoshi {
                 JsonAdapter<NewsSubMoshi> jsonAdapter = moshi.adapter(NewsSubMoshi.class);
 
                 NewsSubMoshi item = jsonAdapter.fromJson(jsonStr);
-                subLists.add(item);
+                newsList.add(item);
             }
-            newsMap.put(key, subLists);
+            newsMap.put(key, newsList);
         }
     }
 

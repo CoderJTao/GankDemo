@@ -44,12 +44,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsRecycleHol
 
         this.tagLists = news.tagsLists;
 
-        for (int i = 0; i < tagLists.size(); i++) {
-            String key = tagLists.get(i);
-            List<NewsSubMoshi> subLists = mNews.newsMap.get(key);
-            newsList.addAll(subLists);
-        }
+        this.newsList = news.newsList;
 
+        // 刷新界面的操作必须要在主线程中运行
         ((Activity)mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
