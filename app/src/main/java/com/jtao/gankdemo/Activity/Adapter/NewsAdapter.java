@@ -8,6 +8,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsRecycleHol
     private List<NewsSubMoshi> newsList;
 
     private List<String> tagLists;
+
+    // 定义一个接口
+    public interface OnNewsItemClickListener {
+        void onClickItem(NewsSubMoshi subItem);
+    }
+    // 定义自己的属性
+    private OnNewsItemClickListener listener;
+    // 写一个公共方法，传入listener
+    public void setOnItemClickListener(OnNewsItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public NewsAdapter(Context context) {
         this.mContext = context;
@@ -68,7 +80,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsRecycleHol
         if (mNews == null || newsList.size() == 0 || newsList.size() <= i) return;
 
         // 设置值
-        NewsSubMoshi item = newsList.get(i);
+        final NewsSubMoshi item = newsList.get(i);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickItem(item);
+            }
+        });
 
         if (item != null) {
             viewHolder.new_desc.setText(item.desc);

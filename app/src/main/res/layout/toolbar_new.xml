@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/nav_title"
-        android:text="2019-11-11"
+        android:text="Today"
         android:textSize="24sp"
         android:textColor="@android:color/white"
         android:textFontWeight="10"

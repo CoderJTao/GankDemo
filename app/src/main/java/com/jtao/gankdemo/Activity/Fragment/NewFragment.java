@@ -1,6 +1,7 @@
 package com.jtao.gankdemo.Activity.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,11 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
 import com.jtao.gankdemo.Activity.ItemDecoration.NewsItemDecoration;
 import com.jtao.gankdemo.Activity.MainActivity;
 import com.jtao.gankdemo.Activity.Model.NewsMoshi;
+import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
+import com.jtao.gankdemo.Activity.NewsDetailActivity;
 import com.jtao.gankdemo.Activity.Util.NetworkService;
 import com.jtao.gankdemo.R;
 
@@ -33,7 +37,7 @@ import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class NewFragment extends Fragment {
+public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClickListener {
 
     private static Context mContext;
 
@@ -96,9 +100,16 @@ public class NewFragment extends Fragment {
         newRecyclerView.addItemDecoration(newsItemDecoration = new NewsItemDecoration((mContext)));
 
         newsAdapter = new NewsAdapter(mContext);
+        newsAdapter.setOnItemClickListener(this);
         newRecyclerView.setAdapter(newsAdapter);
     }
 
+    @Override
+    public void onClickItem(NewsSubMoshi subItem) {
+        Intent intent = new Intent(mContext, NewsDetailActivity.class);
+        intent.putExtra("url", subItem.url);
+        mContext.startActivity(intent);
+    }
 
     private void initData() {
         // 获取当日数据

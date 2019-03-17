@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.BaseActivity"/>
+        <activity android:name=".Activity.NewsDetailActivity"/>
     </application>
 
 </manifest>
