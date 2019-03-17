@@ -145,45 +145,6 @@ public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClick
     }
 
 
-    private void initDateList() {
-        // 获取所有日期
-        NetworkService.getNewsDates(new NetworkService.MyNetCall() {
-            @Override
-            public void success(Call call, Response response) throws IOException {
-                String jsonStr = response.body().string();
-
-                try {
-                    JSONObject object = new JSONObject(jsonStr);
-
-                    JSONArray lists = object.getJSONArray("results");
-
-                    for (int i = 0; i < lists.length(); i++) {
-                        dateLists.add(lists.getString(i));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void failed(Call call, IOException e) {
-
-            }
-        });
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -12,25 +12,45 @@
         layout="@layout/toolbar_new"/>
 
     <LinearLayout
+        android:id="@+id/canlendar_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nav_bar"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="@android:color/holo_blue_bright">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/calendar_scrollView_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/containerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nav_bar"
+        app:layout_constraintTop_toBottomOf="@id/canlendar_content"
         app:layout_constraintBottom_toTopOf="@id/tabbar_content"
         android:orientation="vertical" />
-
-    <LinearLayout
-        android:id="@+id/canlendar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/containerView"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:background="@android:color/holo_blue_bright"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/tabbar_content"

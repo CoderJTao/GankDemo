@@ -14,23 +14,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jtao.gankdemo.Activity.CustomView.CalendarItem;
 import com.jtao.gankdemo.Activity.Fragment.CategoryFragment;
 import com.jtao.gankdemo.Activity.Fragment.GirlFragment;
 import com.jtao.gankdemo.Activity.Fragment.LikeFragment;
 import com.jtao.gankdemo.Activity.Fragment.NewFragment;
+import com.jtao.gankdemo.Activity.Util.DateUtil;
+import com.jtao.gankdemo.Activity.Util.NetworkService;
 import com.jtao.gankdemo.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    @BindView(R.id.canlendar)
+    @BindView(R.id.canlendar_content)
     LinearLayout mCalendar;
 
     @BindView(R.id.contentview)
@@ -48,12 +61,19 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.nav_item_right)
     ImageButton rightItem;
 
+    @BindView(R.id.calendar_scrollView_content)
+    LinearLayout calendarContent;
+
     private BottomNavigationView bottomNavigationView;
     private NewFragment newFragment;
     private CategoryFragment categoryFragment;
     private GirlFragment girlFragment;
     private LikeFragment likeFragment;
     private Fragment[] fragments;
+
+    private List<String> datesList;
+    private List<String> showDatesList;
+    private boolean isInitFlag = false;
 
     private int lastSelectedFragment;  // 记录上次选择的fragment
 
@@ -64,6 +84,10 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
 //        ImmersedStatusbarUtils.initAfterSetContentView(this, navBar);
+
+        datesList = new ArrayList<>();
+        showDatesList = new ArrayList<>();
+        initDateList();
 
         initView();
     }
@@ -82,19 +106,43 @@ public class MainActivity extends BaseActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.tabbar_content);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(changeFragment);
+    }
 
+    private void initDateList() {
+        // 获取所有日期
+        NetworkService.getNewsDates(new NetworkService.MyNetCall() {
+            @Override
+            public void success(Call call, Response response) throws IOException {
+                String jsonStr = response.body().string();
+
+                try {
+                    JSONObject object = new JSONObject(jsonStr);
+
+                    JSONArray lists = object.getJSONArray("results");
+
+                    for (int i = 0; i < lists.length(); i++) {
+                        if (i < 7) {
+                            showDatesList.add(lists.getString(i));
+                        }
+                        datesList.add(lists.getString(i));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void failed(Call call, IOException e) {
+
+            }
+        });
     }
 
     @OnClick(R.id.nav_item_left)
     public void leftItemClick() {
         switch (lastSelectedFragment) {
             case 0:
-                Toast.makeText(this, "点击了日历", Toast.LENGTH_SHORT).show();
-                if (mCalendar.getVisibility() == View.GONE) {
-                    mCalendar.setVisibility(View.VISIBLE);
-                } else {
-                    mCalendar.setVisibility(View.GONE);
-                }
+                // 点击日历
+                calendarViewClick();
                 break;
             case 1:
                 Toast.makeText(this, "点击了添加", Toast.LENGTH_SHORT).show();
@@ -170,8 +218,48 @@ public class MainActivity extends BaseActivity {
         transaction.commitAllowingStateLoss();
     }
 
+    private void calendarViewClick() {
+        if (!isInitFlag) {
+            int width = 0;
+            int height = 0;
 
+            // 初始化 日期 视图
+            for (int i = 0; i < showDatesList.size(); i++) {
+                String dateTime = datesList.get(i);
+
+                final CalendarItem item = new CalendarItem(this);
+                item.setData(dateTime);
+                item.setListenr(this);
+                calendarContent.addView(item);
+
+                width = item.getWidth();
+                height = item.getHeight();
+            }
+
+            //TODO: 添加最后一个 列表 图片
+
+            isInitFlag = true;
+        }
+
+        if (mCalendar.getVisibility() == View.GONE) {
+            mCalendar.setVisibility(View.VISIBLE);
+        } else {
+            mCalendar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        // 日期 视图 item 点击
+        if (v instanceof CalendarItem) {
+            Toast.makeText(this, ((CalendarItem) v).dateStr, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    // TODO: 转场动画
     /**
+     *
      *  覆盖即将到来的跳转动画
      *
      * @param enterAnim
