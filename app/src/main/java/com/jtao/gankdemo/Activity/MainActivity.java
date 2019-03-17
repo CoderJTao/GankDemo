@@ -1,14 +1,18 @@
 package com.jtao.gankdemo.Activity;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +29,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
+
+    @BindView(R.id.canlendar)
+    LinearLayout mCalendar;
+
+    @BindView(R.id.contentview)
+    ConstraintLayout mainContainer;
 
     @BindView(R.id.nav_bar)
     LinearLayout navBar;
@@ -80,6 +90,11 @@ public class MainActivity extends BaseActivity {
         switch (lastSelectedFragment) {
             case 0:
                 Toast.makeText(this, "点击了日历", Toast.LENGTH_SHORT).show();
+                if (mCalendar.getVisibility() == View.GONE) {
+                    mCalendar.setVisibility(View.VISIBLE);
+                } else {
+                    mCalendar.setVisibility(View.GONE);
+                }
                 break;
             case 1:
                 Toast.makeText(this, "点击了添加", Toast.LENGTH_SHORT).show();
@@ -153,6 +168,18 @@ public class MainActivity extends BaseActivity {
         }
 
         transaction.commitAllowingStateLoss();
+    }
+
+
+    /**
+     *  覆盖即将到来的跳转动画
+     *
+     * @param enterAnim
+     * @param exitAnim
+     */
+    @Override
+    public void overridePendingTransition(int enterAnim, int exitAnim) {
+        super.overridePendingTransition(enterAnim, exitAnim);
     }
 }
 
