@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:id="@+id/search_nav"
+        android:background="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/search_item_left"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_margin="8dp"
+            android:background="#00000000"
+            android:src="@mipmap/back"/>
 
+        <EditText
+            android:id="@+id/search_input"
+            android:hint="输入搜索关键字..."
+            android:maxLength="15"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:background="@null"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textFontWeight="10"
+            android:layout_weight="1"
+            android:imeOptions="actionSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/search_item_right"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_margin="8dp"
+            android:background="#00000000"
+            android:src="@mipmap/search"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_nav"
+        android:orientation="horizontal"/>
 
 </android.support.constraint.ConstraintLayout>
