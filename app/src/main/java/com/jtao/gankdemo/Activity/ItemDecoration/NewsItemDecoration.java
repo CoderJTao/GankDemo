@@ -23,7 +23,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
     private List<String> tagsList;
     private List<NewsSubMoshi> newsList;
 
-    private static final int HEADER_HEIGHT = 200;
+    private static final int HEADER_HEIGHT = 150;
     private static final int SEPERATE_LINE_HEIGHT = 2;
 
     public NewsItemDecoration(Context context) {
@@ -106,7 +106,7 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
         canvas.drawRect(left,top + sep, left + 20, bottom - sep, mPaint);
 
         mPaint.setColor(Color.BLACK);
-        mPaint.setTextSize(100);
+        mPaint.setTextSize(60);
         mPaint.setTextAlign(Paint.Align.LEFT);
         canvas.drawText(item.type, 80, bottom - HEADER_HEIGHT/3, mPaint);
     }

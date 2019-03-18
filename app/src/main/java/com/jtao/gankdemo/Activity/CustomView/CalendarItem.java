@@ -1,7 +1,9 @@
 package com.jtao.gankdemo.Activity.CustomView;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +49,8 @@ public class CalendarItem extends LinearLayout {
      *
      * @param dateTime  yyyy-MM-dd
      */
-    public void setData(String dateTime) {
+    @SuppressLint("ResourceAsColor")
+    public void setData(String dateTime, String current) {
         this.dateStr = dateTime;
 
         String[] strs = dateTime.split("-");
@@ -100,7 +103,23 @@ public class CalendarItem extends LinearLayout {
                 break;
         }
 
+        if (current.equals(dateTime)) {
+            mDayText.setTextColor(Color.parseColor("#008577"));
+            mWeekText.setTextColor(Color.parseColor("#008577"));
+            mMonthText.setTextColor(Color.parseColor("#008577"));
+        }
     }
 
+    public void setColor(String current) {
+        if (current.equals(dateStr)) {
+            mDayText.setTextColor(Color.parseColor("#008577"));
+            mWeekText.setTextColor(Color.parseColor("#008577"));
+            mMonthText.setTextColor(Color.parseColor("#008577"));
+        } else {
+            mDayText.setTextColor(Color.BLACK);
+            mWeekText.setTextColor(Color.parseColor("#888888"));
+            mMonthText.setTextColor(Color.parseColor("#888888"));
+        }
+    }
 
 }

@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private List<String> datesList;
     private List<String> showDatesList;
+    private List<CalendarItem> showCalendarItem;
     private boolean isInitFlag = false;
 
     private int lastSelectedFragment;  // 记录上次选择的fragment
@@ -87,6 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         datesList = new ArrayList<>();
         showDatesList = new ArrayList<>();
+        showCalendarItem = new ArrayList<>();
         initDateList();
 
         initView();
@@ -227,10 +229,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             for (int i = 0; i < showDatesList.size(); i++) {
                 String dateTime = datesList.get(i);
 
+                String test = "2019-01-21";
                 final CalendarItem item = new CalendarItem(this);
-                item.setData(dateTime);
+                item.setData(dateTime, test);
                 item.setListenr(this);
                 calendarContent.addView(item);
+
+                showCalendarItem.add(item);
 
                 width = item.getWidth();
                 height = item.getHeight();
@@ -252,7 +257,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         // 日期 视图 item 点击
         if (v instanceof CalendarItem) {
-            Toast.makeText(this, ((CalendarItem) v).dateStr, Toast.LENGTH_SHORT).show();
+            for (int i = 0; i < showCalendarItem.size(); i++) {
+                CalendarItem item = showCalendarItem.get(i);
+                item.setColor(((CalendarItem) v).dateStr);
+            }
         }
     }
 
