@@ -1,5 +1,6 @@
 package com.jtao.gankdemo.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private List<String> datesList;
     private List<String> showDatesList;
+    private List<CalendarItem> showCalendarItem;
     private boolean isInitFlag = false;
 
     private int lastSelectedFragment;  // 记录上次选择的fragment
@@ -87,6 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         datesList = new ArrayList<>();
         showDatesList = new ArrayList<>();
+        showCalendarItem = new ArrayList<>();
         initDateList();
 
         initView();
@@ -158,7 +161,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @OnClick(R.id.nav_item_right)
     public void rightItemClick() {
-        Toast.makeText(this, "点击了搜索", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SearchActivity.class);
+
+        startActivity(intent);
     }
 
     // 判断选择菜单
@@ -227,16 +232,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             for (int i = 0; i < showDatesList.size(); i++) {
                 String dateTime = datesList.get(i);
 
+                String test = "2019-01-21";
                 final CalendarItem item = new CalendarItem(this);
-                item.setData(dateTime);
+                item.setData(dateTime, test);
                 item.setListenr(this);
                 calendarContent.addView(item);
+
+                showCalendarItem.add(item);
 
                 width = item.getWidth();
                 height = item.getHeight();
             }
 
             //TODO: 添加最后一个 列表 图片
+            ImageButton imgBtn = new ImageButton(this);
+            imgBtn.setImageResource(R.mipmap.calendar_history);
+            imgBtn.setMaxWidth(width);
+            imgBtn.setMaxHeight(height);
+            imgBtn.getBackground().setAlpha(0);
+
+            calendarContent.addView(imgBtn);
+
+            imgBtn.setOnClickListener(this);
 
             isInitFlag = true;
         }
@@ -252,7 +269,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         // 日期 视图 item 点击
         if (v instanceof CalendarItem) {
-            Toast.makeText(this, ((CalendarItem) v).dateStr, Toast.LENGTH_SHORT).show();
+            // 日期点击事件处理
+            for (int i = 0; i < showCalendarItem.size(); i++) {
+                CalendarItem item = showCalendarItem.get(i);
+                item.setColor(((CalendarItem) v).dateStr);
+            }
+        } else if (v instanceof ImageButton) {
+            // 历史日期列表点击
+
         }
     }
 
