@@ -2,11 +2,39 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 设置没有标题 -->
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- 设置activity切换动画 -->
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+
+
+
+
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--设置StatusBar颜色-->
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+
+    <style name="activityAnimation" parent="@android:style/Animation">
+
+        <!-- 要启动的Activity的入场动画 -->
+        <item name="android:activityOpenEnterAnimation">@anim/right_in</item>
+
+        <!-- 当前Activity结束的动画 -->
+        <item name="android:activityOpenExitAnimation">@anim/left_out</item>
+
+        <!-- 栈顶Activity的入场动画 -->
+        <item name="android:activityCloseEnterAnimation">@anim/left_in</item>
+
+        <!-- 要结束的Activity的出场动画 -->
+        <item name="android:activityCloseExitAnimation">@anim/right_out</item>
+
+    </style>
+
 
 </resources>

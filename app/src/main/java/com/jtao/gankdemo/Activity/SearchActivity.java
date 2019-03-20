@@ -2,10 +2,12 @@ package com.jtao.gankdemo.Activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.transition.Slide;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
