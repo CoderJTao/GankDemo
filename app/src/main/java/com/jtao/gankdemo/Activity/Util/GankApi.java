@@ -13,6 +13,9 @@ public class GankApi {
     // 首页数据    api/day/2019/01/21
     private static String API_NEW_DATA = "api/day";
 
+    // 搜索数据
+    private static String API_SEARCH = "/api/search/query";
+
     // 分类全部数据  /api/data/all/20/1
     private static String API_CATEGORY_ALL = "/api/data/all";
 
@@ -35,6 +38,9 @@ public class GankApi {
         return API_GANK_HOST + API_NEW_DATA;
     }
 
+    public static String SEARCHDATA(String keyword) {
+        return API_GANK_HOST + API_SEARCH + "/" + keyword + "/category/all/count/50/page/1";
+    }
 
 }
 
