@@ -272,14 +272,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // 日期 视图 item 点击
         if (v instanceof CalendarItem) {
             // 日期点击事件处理
+            String clickDateStr = "";
+
             for (int i = 0; i < showCalendarItem.size(); i++) {
                 CalendarItem item = showCalendarItem.get(i);
                 item.setColor(((CalendarItem) v).dateStr);
+                if (item.dateStr.equals(((CalendarItem) v).dateStr)) {
+                    clickDateStr = item.dateStr;
+                }
             }
-        } else if (v instanceof ImageButton) {
-            // 历史日期列表点击
 
+            if (!clickDateStr.equals("")) {
+                getNewsData(clickDateStr);
+            }
+
+        } else if (v instanceof ImageButton) {
+            // 历史日期列表点击 -> 进入历史列表
+            Intent intent = new Intent(this, HistoryActivity.class);
+
+            String[] dates = new String[datesList.size()];
+            for (int i = 0; i < datesList.size(); i++) {
+                dates[i] = datesList.get(i);
+            }
+            intent.putExtra("dateList", dates);
+            startActivity(intent);
         }
+    }
+
+    /**
+     *  点击了日期，切换至当前日期的数据
+     * @param selectDate
+     */
+    private void getNewsData(String selectDate) {
+
     }
 
 

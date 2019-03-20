@@ -24,6 +24,7 @@
         <activity android:name=".Activity.BaseActivity"/>
         <activity android:name=".Activity.NewsDetailActivity"/>
         <activity android:name=".Activity.SearchActivity"/>
+        <activity android:name=".Activity.HistoryActivity"/>
     </application>
 
 </manifest>

@@ -49,6 +49,8 @@ public class NewsMoshi {
     public Map<String, List<NewsSubMoshi>> newsMap;
     public List<NewsSubMoshi> newsList;
 
+    public String todayGirl = "";
+
     public NewsMoshi(JSONArray categoryList, JSONObject object) throws JSONException, IOException {
         this.mObject = object;
 
@@ -71,6 +73,13 @@ public class NewsMoshi {
             String key = it.next();
 
             if (key.equals("福利")) {
+                JSONArray lists = mObject.getJSONArray(key);
+
+                if (lists != null && lists.length() > 0) {
+                    JSONObject use = lists.getJSONObject(0);
+                    todayGirl = use.getString("url");
+                }
+
                 continue;
             }
 
