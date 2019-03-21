@@ -3,6 +3,8 @@ package com.jtao.gankdemo.Activity.Util;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -69,6 +71,12 @@ public class NetworkService {
         });
     }
 
+    /**
+     *  获取搜索结果
+     *
+     * @param keyword
+     * @param callback
+     */
     public static void getSearchData(final String keyword, final MyNetCall callback) {
         String url = GankApi.SEARCHDATA(keyword);
 
@@ -91,6 +99,37 @@ public class NetworkService {
             }
         });
 
+    }
+
+    /**
+     * 获取历史数据列表
+     *
+     * @param dateList
+     * @param callback
+     */
+    public static void getHistoryData(final List<String> dateList, final MyNetCall callback) {
+        for (int i = 0; i < dateList.size(); i++) {
+            String url = GankApi.HISTORYDATALIST(dateList.get(i));
+
+            final Request request = new Request.Builder()
+                    .url(url)
+                    .get()
+                    .build();
+
+            Call call = okHttpClient.newCall(request);
+
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    callback.failed(call, e);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    callback.success(call, response);
+                }
+            });
+        }
     }
 
 

@@ -11,7 +11,7 @@ public class GankApi {
     private static String API_NEW_DATE = "/api/day/history";
 
     // 首页数据    api/day/2019/01/21
-    private static String API_NEW_DATA = "api/day";
+    private static String API_NEW_DATA = "/api/day";
 
     // 搜索数据
     private static String API_SEARCH = "/api/search/query";
@@ -40,6 +40,11 @@ public class GankApi {
 
     public static String SEARCHDATA(String keyword) {
         return API_GANK_HOST + API_SEARCH + "/" + keyword + "/category/all/count/50/page/1";
+    }
+
+    public static String HISTORYDATALIST(String date) {
+        String[] arr = date.split("-");
+        return API_GANK_HOST + API_NEW_DATA + "/" + arr[0] + "/" + arr[1] + "/" + arr[2];
     }
 
 }
