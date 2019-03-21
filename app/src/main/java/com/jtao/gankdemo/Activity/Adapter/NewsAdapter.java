@@ -48,7 +48,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsRecycleHol
         newsList = new ArrayList<>();
     }
 
-    public void addData(NewsMoshi news) {
+    public void setData(NewsMoshi news) {
         if (this.mNews != null) {
             this.mNews = null;
         }

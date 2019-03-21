@@ -130,7 +130,7 @@ public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClick
 
                     newsData = new NewsMoshi(categories, object1);
 
-                    newsAdapter.addData(newsData);
+                    newsAdapter.setData(newsData);
                     newsItemDecoration.setData(newsData);
 
                 } catch (Exception e) {
@@ -143,11 +143,42 @@ public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClick
 
             }
         });
-
-
     }
 
+    /**
+     *  根据日期获取当日数据
+     *
+     * @param time
+     */
+    public void getTargetData(String time) {
+        NetworkService.getTargetData(time, new NetworkService.MyNetCall() {
+            @Override
+            public void success(Call call, Response response) throws IOException {
+                String jsonStr = response.body().string();
+                try {
+                    JSONObject object = new JSONObject(jsonStr);
 
+                    // 获取到当前所有categoty
+                    JSONArray categories = object.getJSONArray("category");
+
+                    JSONObject object1 = object.getJSONObject("results");
+
+                    newsData = new NewsMoshi(categories, object1);
+
+                    newsAdapter.setData(newsData);
+                    newsItemDecoration.setData(newsData);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void failed(Call call, IOException e) {
+
+            }
+        });
+    }
 
 
 

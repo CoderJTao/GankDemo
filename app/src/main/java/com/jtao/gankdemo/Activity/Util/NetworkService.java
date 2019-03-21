@@ -101,6 +101,29 @@ public class NetworkService {
 
     }
 
+    public static void getTargetData(final String timeStr, final MyNetCall callback) {
+        String url = GankApi.HISTORYDATALIST(timeStr);
+
+        final Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.failed(call, e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                callback.success(call, response);
+            }
+        });
+    }
+
     /**
      * 获取历史数据列表
      *

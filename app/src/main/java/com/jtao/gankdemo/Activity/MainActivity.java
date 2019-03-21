@@ -297,9 +297,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * @param selectDate
      */
     private void getNewsData(String selectDate) {
-
+        title.setText(selectDate);
+        newFragment.getTargetData(selectDate);
     }
-
 
     // TODO: 转场动画
     /**
