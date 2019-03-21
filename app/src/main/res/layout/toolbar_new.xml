@@ -15,7 +15,9 @@
     <TextView
         android:id="@+id/nav_title"
         android:text="Today"
+        android:maxLines="1"
         android:textSize="22sp"
+        android:ellipsize="end"
         android:textColor="@android:color/white"
         android:layout_weight="1"
         android:layout_width="wrap_content"

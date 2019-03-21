@@ -25,6 +25,9 @@ public class NewsDetailActivity extends BaseActivity {
     @BindView(R.id.nav_title)
     TextView navTitle;
 
+    @BindView(R.id.nav_item_right)
+    ImageButton rightItem;
+
     @BindView(R.id.webview)
     WebView mWebView;
 
@@ -48,7 +51,7 @@ public class NewsDetailActivity extends BaseActivity {
             }
         });
 
-        navTitle.setVisibility(View.INVISIBLE);
+        rightItem.setVisibility(View.INVISIBLE);
 
         // 2. 取出 url， 加载网页
         Intent intent = getIntent();
@@ -64,6 +67,9 @@ public class NewsDetailActivity extends BaseActivity {
                 return true;
             }
         });
+
+        String title = intent.getStringExtra("title");
+        navTitle.setText(title);
     }
 
     @Override
