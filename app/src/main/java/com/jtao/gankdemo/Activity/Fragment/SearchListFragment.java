@@ -138,6 +138,7 @@ public class SearchListFragment extends Fragment implements SearchAdapter.Search
     public void onSearchItemClick(SearchItemMoshi searchItem) {
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("url", searchItem.url);
+        intent.putExtra("title", searchItem.desc);
         mContext.startActivity(intent);
     }
 }

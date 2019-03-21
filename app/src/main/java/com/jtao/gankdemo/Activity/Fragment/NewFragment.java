@@ -111,6 +111,7 @@ public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClick
     public void onClickItem(NewsSubMoshi subItem) {
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("url", subItem.url);
+        intent.putExtra("title", subItem.desc);
         mContext.startActivity(intent);
     }
 

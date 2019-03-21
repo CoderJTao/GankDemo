@@ -58,13 +58,13 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
                 continue;
             }
 
-            if (position == 0) {
+            if (position == 1) {
                 // 第一条数据肯定是有Header的，取 NewsSubMoshi 里面的额 Type 字段
                 drawHeaderView(c, parent, child, newsList.get(position));
 
                 // 绘制分割线
 //                drawSeperateLine(c, child);
-            } else if (position > 0) {
+            } else if (position > 1) {
 
                 // 后续当检测到 NewsSubMoshi 中 type 字段值变化时，画出 Header
                 if (!newsList.get(position).type.equals(newsList.get(position-1).type)) {
@@ -139,9 +139,9 @@ public class NewsItemDecoration extends RecyclerView.ItemDecoration {
             return;
         }
 
-        if (postion == 0) {
+        if (postion == 1) {
             outRect.set(0, HEADER_HEIGHT, 0, SEPERATE_LINE_HEIGHT);
-        } else if (postion > 0) {
+        } else if (postion > 1) {
             if (!newsList.get(postion).type.equals(newsList.get(postion-1).type)) {
                 outRect.set(0, HEADER_HEIGHT, 0, SEPERATE_LINE_HEIGHT);
             } else {
