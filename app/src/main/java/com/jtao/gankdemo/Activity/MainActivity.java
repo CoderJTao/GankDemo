@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -227,9 +228,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void calendarViewClick() {
         if (!isInitFlag) {
-            int width = 0;
-            int height = 0;
-
             // 初始化 日期 视图
             for (int i = 0; i < showDatesList.size(); i++) {
                 String dateTime = datesList.get(i);
@@ -241,16 +239,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 calendarContent.addView(item);
 
                 showCalendarItem.add(item);
-
-                width = item.getWidth();
-                height = item.getHeight();
             }
 
             //TODO: 添加最后一个 列表 图片
             ImageButton imgBtn = new ImageButton(this);
             imgBtn.setImageResource(R.mipmap.calendar_history);
-            imgBtn.setMaxWidth(width);
-            imgBtn.setMaxHeight(height);
             imgBtn.getBackground().setAlpha(0);
 
             calendarContent.addView(imgBtn);
@@ -304,9 +297,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * @param selectDate
      */
     private void getNewsData(String selectDate) {
-
+        title.setText(selectDate);
+        newFragment.getTargetData(selectDate);
     }
-
 
     // TODO: 转场动画
     /**

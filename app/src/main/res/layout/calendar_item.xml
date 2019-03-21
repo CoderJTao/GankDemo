@@ -14,8 +14,8 @@
             android:id="@+id/calendar_item_day"
             android:text="17"
             android:textColor="@android:color/black"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            android:textSize="23sp"
+            android:textStyle="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
