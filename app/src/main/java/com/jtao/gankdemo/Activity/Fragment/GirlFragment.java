@@ -1,6 +1,11 @@
 package com.jtao.gankdemo.Activity.Fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +17,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.jtao.gankdemo.Activity.Adapter.GirlAdapter;
 import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
+import com.jtao.gankdemo.Activity.CustomView.ShowGirlDialog;
 import com.jtao.gankdemo.Activity.ItemDecoration.GirlsItemDecoration;
 import com.jtao.gankdemo.Activity.ItemDecoration.ItemSeparateLine;
 import com.jtao.gankdemo.Activity.ItemDecoration.NewsItemDecoration;
@@ -38,7 +45,7 @@ import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class GirlFragment extends Fragment {
+public class GirlFragment extends Fragment implements GirlAdapter.OnGirlsItemClickListener {
 
     private Context mContext;
     private Unbinder unbinder;
@@ -109,6 +116,7 @@ public class GirlFragment extends Fragment {
         mRecyclerView.addItemDecoration(mItemDecoration);
 
         mAdapter = new GirlAdapter(mContext);
+        mAdapter.setGirlsClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -149,8 +157,18 @@ public class GirlFragment extends Fragment {
         });
     }
 
+    /**
+     * 点击进入显示大图
+     *
+     * @param image
+     */
+    @Override
+    public void onGirlClick(Bitmap image) {
 
+        ShowGirlDialog.Builder builder = new ShowGirlDialog.Builder(mContext).setShowGirl(image);
 
+        builder.create().show();
+    }
 
 
 
@@ -243,5 +261,4 @@ public class GirlFragment extends Fragment {
 
         Log.d(TAG, "onDestroyView: ");
     }
-
 }
