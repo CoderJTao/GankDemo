@@ -12,7 +12,6 @@ import android.view.View;
 import java.util.List;
 
 public class ItemSeparateLine extends RecyclerView.ItemDecoration {
-
     private Context mContext;
 
     private Paint mPaint;
@@ -58,7 +57,7 @@ public class ItemSeparateLine extends RecyclerView.ItemDecoration {
     }
 
     /**
-     *  绘制 分隔线
+     *  绘制 normal 分隔线
      *
      * @param canvas
      * @param child
