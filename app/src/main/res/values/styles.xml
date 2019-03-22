@@ -17,6 +17,7 @@
         <!--设置StatusBar颜色-->
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
 
@@ -34,6 +35,17 @@
         <!-- 要结束的Activity的出场动画 -->
         <item name="android:activityCloseExitAnimation">@anim/right_out</item>
 
+    </style>
+
+
+    <style name="show_girl" parent="android:style/Theme.Dialog">
+        <!--<item name="android:windowFrame">@color/transparent</item>&lt;!&ndash; 边框 &ndash;&gt;-->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowBackground">@color/showgirlBackground</item>
+        <!--<item name="android:windowBackground">@color/transparent</item>&lt;!&ndash; 自己想要的背景 &ndash;&gt;-->
+        <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
     </style>
 
 

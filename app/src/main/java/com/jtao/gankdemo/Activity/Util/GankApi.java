@@ -47,6 +47,9 @@ public class GankApi {
         return API_GANK_HOST + API_NEW_DATA + "/" + arr[0] + "/" + arr[1] + "/" + arr[2];
     }
 
+    public static String GIRLS() {
+        return API_GANK_HOST + API_GIRL_DATA + "/20/1";
+    }
 }
 
 

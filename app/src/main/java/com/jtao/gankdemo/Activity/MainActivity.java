@@ -154,7 +154,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "点击了添加", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
-                Toast.makeText(this, "点击了转换", Toast.LENGTH_SHORT).show();
+                changeLayoutClick();
                 break;
             case 3:
                 Toast.makeText(this, "点击了设置", Toast.LENGTH_SHORT).show();
@@ -180,6 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         lastSelectedFragment = 0;
                         leftItem.setVisibility(View.VISIBLE);
                         leftItem.setImageResource(R.mipmap.calendar);
+                        title.setText("Today");
                     }
                     return true;
                 case R.id.tabbar_category:
@@ -187,6 +188,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         switchFragment(lastSelectedFragment, 1);
                         lastSelectedFragment = 1;
                         leftItem.setVisibility(View.INVISIBLE);
+                        mCalendar.setVisibility(View.GONE);
+                        title.setText("分类");
                     }
                     return true;
                 case R.id.tabbar_girl:
@@ -195,6 +198,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         lastSelectedFragment = 2;
                         leftItem.setVisibility(View.VISIBLE);
                         leftItem.setImageResource(R.mipmap.transfer);
+                        mCalendar.setVisibility(View.GONE);
+                        title.setText("福利");
                     }
                     return true;
                 case R.id.tabbar_like:
@@ -203,6 +208,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         lastSelectedFragment = 3;
                         leftItem.setVisibility(View.VISIBLE);
                         leftItem.setImageResource(R.mipmap.setting);
+                        mCalendar.setVisibility(View.GONE);
+                        title.setText("收藏");
                     }
                     return true;
             }
@@ -226,6 +233,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         transaction.commitAllowingStateLoss();
     }
 
+    /**
+     *  leftitem 日历点击
+     *
+     */
     private void calendarViewClick() {
         if (!isInitFlag) {
             // 初始化 日期 视图
@@ -241,7 +252,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 showCalendarItem.add(item);
             }
 
-            //TODO: 添加最后一个 列表 图片
+            //
             ImageButton imgBtn = new ImageButton(this);
             imgBtn.setImageResource(R.mipmap.calendar_history);
             imgBtn.getBackground().setAlpha(0);
@@ -259,6 +270,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             mCalendar.setVisibility(View.GONE);
         }
     }
+
+    /**
+     * leftitem 改变GirlFragment布局
+     */
+    private void changeLayoutClick() {
+        girlFragment.changeLayout();
+    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -299,19 +319,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void getNewsData(String selectDate) {
         title.setText(selectDate);
         newFragment.getTargetData(selectDate);
-    }
-
-    // TODO: 转场动画
-    /**
-     *
-     *  覆盖即将到来的跳转动画
-     *
-     * @param enterAnim
-     * @param exitAnim
-     */
-    @Override
-    public void overridePendingTransition(int enterAnim, int exitAnim) {
-        super.overridePendingTransition(enterAnim, exitAnim);
     }
 }
 
