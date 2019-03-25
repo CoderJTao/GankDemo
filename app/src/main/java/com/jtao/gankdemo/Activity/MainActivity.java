@@ -191,6 +191,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         mCalendar.setVisibility(View.GONE);
                         title.setText("分类");
                     }
+
                     return true;
                 case R.id.tabbar_girl:
                     if (lastSelectedFragment != 2) {
