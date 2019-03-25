@@ -44,10 +44,7 @@ public class CategoryFragment extends Fragment {
     @BindView(R.id.category_viewPager)
     ViewPager viewPager;
 
-    private String currentCategory = "All";
-
     private List<Fragment> fragments = new ArrayList<>();
-
 
     public CategoryFragment() { }
 
@@ -66,8 +63,6 @@ public class CategoryFragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
 
         initView();
-
-        initData();
 
         return view;
     }
@@ -88,6 +83,7 @@ public class CategoryFragment extends Fragment {
 
         for (int i = 0; i < tabs.size(); i++) {
             CategorySubFragment fragment = CategorySubFragment.newInstance(mContext);
+            fragment.category = tabs.get(i);
             fragments.add(fragment);
         }
 
@@ -96,14 +92,6 @@ public class CategoryFragment extends Fragment {
         viewPager.setAdapter(fragmentAdapter);
 
         mTabLayout.setupWithViewPager(viewPager);
-
-        mTabLayout.getTabAt(0).select();
-    }
-
-
-    private void initData() {
-
-
     }
 
 

@@ -23,6 +23,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private List<NewsSubMoshi> newsList;
 
+    // 定义自己的属性
+    private NewsAdapter.OnNewsItemClickListener listener;
+    // 写一个公共方法，传入listener
+    public void setOnItemClickListener(NewsAdapter.OnNewsItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public CategoryAdapter(Context context) {
         this.mContext = context;
 
@@ -58,7 +65,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         categoryRecycleHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                listener.onClickItem(item);
+                listener.onClickItem(item);
             }
         });
 

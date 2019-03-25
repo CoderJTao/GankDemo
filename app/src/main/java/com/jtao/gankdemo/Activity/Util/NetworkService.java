@@ -161,7 +161,11 @@ public class NetworkService {
         }
     }
 
-
+    /**
+     *  获取妹纸数据
+     *
+     * @param callback
+     */
     public static void getGirlsData(final MyNetCall callback) {
         String url = GankApi.GIRLS();
 
@@ -186,6 +190,29 @@ public class NetworkService {
 
     }
 
+
+    public static void getCategoryData(final String category, final MyNetCall callback) {
+        String url = GankApi.CATEGORY(category);
+
+        final Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.failed(call, e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                callback.success(call, response);
+            }
+        });
+    }
 
 
 

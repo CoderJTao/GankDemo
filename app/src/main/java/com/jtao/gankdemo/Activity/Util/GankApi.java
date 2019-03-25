@@ -17,7 +17,7 @@ public class GankApi {
     private static String API_SEARCH = "/api/search/query";
 
     // 分类全部数据  /api/data/all/20/1
-    private static String API_CATEGORY_ALL = "/api/data/all";
+    private static String API_CATEGORY = "/api/data/";
 
     // 分类数据     /api/data/瞎推荐/10/1
     private static String API_CATEGORY_DATA = "/api/data/瞎推荐";
@@ -34,21 +34,25 @@ public class GankApi {
         return API_GANK_HOST + API_NEW_DATE;
     }
 
-    public static String DAYDATA(String s) {
+    public static String DAYDATA(final String s) {
         return API_GANK_HOST + API_NEW_DATA;
     }
 
-    public static String SEARCHDATA(String keyword) {
+    public static String SEARCHDATA(final String keyword) {
         return API_GANK_HOST + API_SEARCH + "/" + keyword + "/category/all/count/50/page/1";
     }
 
-    public static String HISTORYDATALIST(String date) {
+    public static String HISTORYDATALIST(final String date) {
         String[] arr = date.split("-");
         return API_GANK_HOST + API_NEW_DATA + "/" + arr[0] + "/" + arr[1] + "/" + arr[2];
     }
 
     public static String GIRLS() {
         return API_GANK_HOST + API_GIRL_DATA + "/20/1";
+    }
+
+    public static String CATEGORY(final String category) {
+        return API_GANK_HOST + API_CATEGORY + category + "/50/1";
     }
 }
 

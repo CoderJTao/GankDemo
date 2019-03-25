@@ -9,6 +9,9 @@
         android:id="@+id/category_tablayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        app:tabTextColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="2dp"
         app:tabMode="scrollable"/>
 
 
