@@ -12,13 +12,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jtao.gankdemo.Activity.MainActivity;
+import com.jtao.gankdemo.Activity.Model.NewsMoshi;
 import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
 import com.jtao.gankdemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryRecycleHolder> {
+public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeRecycleHolder> {
 
     private Context mContext;
 
@@ -31,15 +32,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.listener = listener;
     }
 
-    public CategoryAdapter(Context context) {
+    public LikeAdapter(Context context) {
         this.mContext = context;
 
         newsList = new ArrayList<>();
     }
 
-    public void setData(List<NewsSubMoshi> lists) {
-        this.newsList = lists;
+    public void setData(List<NewsSubMoshi> news) {
+        if (this.newsList != null) {
+            this.newsList = null;
+        }
+        this.newsList = news;
 
+        // 刷新界面的操作必须要在主线程中运行
         ((Activity)mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -50,20 +55,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @NonNull
     @Override
-    public CategoryRecycleHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public LikeAdapter.LikeRecycleHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycle_news_item, viewGroup, false);
-
-        return new CategoryAdapter.CategoryRecycleHolder(view);
+        return new LikeAdapter.LikeRecycleHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryRecycleHolder categoryRecycleHolder, int i) {
-        if (newsList.size() == 0 || newsList.size() <= i) return;
+    public void onBindViewHolder(@NonNull LikeAdapter.LikeRecycleHolder viewHolder, int i) {
+        if (newsList == null || newsList.size() == 0 || newsList.size() <= i) return;
 
         // items
         final NewsSubMoshi item = newsList.get(i);
 
-        categoryRecycleHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        LikeAdapter.LikeRecycleHolder holder = (LikeAdapter.LikeRecycleHolder)viewHolder;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickItem(item);
@@ -71,19 +77,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         });
 
         if (item != null) {
-            categoryRecycleHolder.new_desc.setText(item.desc);
-            categoryRecycleHolder.new_who.setText(item.who);
-            categoryRecycleHolder.new_time.setText(item.publishedAt.substring(0, 10));
+            holder.new_desc.setText(item.desc);
+            holder.new_who.setText(item.who);
+            holder.new_time.setText(item.publishedAt.substring(0, 10));
 
             if (item.images != null) {
-                categoryRecycleHolder.new_showImage.setVisibility(View.VISIBLE);
+                holder.new_showImage.setVisibility(View.VISIBLE);
                 String url = item.images.get(0);
-                Glide.with(mContext).load(url).into(categoryRecycleHolder.new_showImage);
+                Glide.with(mContext).load(url).into(holder.new_showImage);
             } else {
-                categoryRecycleHolder.new_showImage.setVisibility(View.GONE);
+                holder.new_showImage.setVisibility(View.GONE);
             }
         }
-
     }
 
     @Override
@@ -94,13 +99,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     /**
      * 每一个item的holder
      */
-    public static class CategoryRecycleHolder extends RecyclerView.ViewHolder {
+    public static class LikeRecycleHolder extends RecyclerView.ViewHolder {
         public final TextView new_desc;
         public final TextView new_who;
         public final TextView new_time;
         public final ImageView new_showImage;
 
-        public CategoryRecycleHolder(View itemView) {
+        public LikeRecycleHolder(View itemView) {
             super(itemView);
 
             new_desc = itemView.findViewById(R.id.new_item_desc);
@@ -109,4 +114,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             new_showImage = itemView.findViewById(R.id.new_item_showimg);
         }
     }
+
 }

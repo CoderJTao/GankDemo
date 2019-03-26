@@ -28,6 +28,7 @@ import com.jtao.gankdemo.Activity.Fragment.CategoryFragment;
 import com.jtao.gankdemo.Activity.Fragment.GirlFragment;
 import com.jtao.gankdemo.Activity.Fragment.LikeFragment;
 import com.jtao.gankdemo.Activity.Fragment.NewFragment;
+import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
 import com.jtao.gankdemo.Activity.Util.DateUtil;
 import com.jtao.gankdemo.Activity.Util.NetworkService;
 import com.jtao.gankdemo.R;
@@ -46,6 +47,11 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+    // 定义一个接口
+    public interface OnNewsItemClickListener {
+        void onClickItem(NewsSubMoshi subItem);
+    }
 
     @BindView(R.id.canlendar_content)
     LinearLayout mCalendar;
