@@ -2,6 +2,7 @@ package com.jtao.gankdemo.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +13,12 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.jtao.gankdemo.Activity.Database.LikeDao;
+import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
 import com.jtao.gankdemo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +37,13 @@ public class NewsDetailActivity extends BaseActivity {
     @BindView(R.id.webview)
     WebView mWebView;
 
+    private LikeDao likeDao = new LikeDao(this);
+
+    private NewsSubMoshi item;
+    private boolean isLiked = false;
+
+    private List<NewsSubMoshi> likeNews = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +51,15 @@ public class NewsDetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        initData();
+
         initView();
+    }
+
+    private void initData() {
+        List<NewsSubMoshi> lists = likeDao.queryAll();
+
+        this.likeNews = lists;
     }
 
     private void initView() {
@@ -51,11 +72,11 @@ public class NewsDetailActivity extends BaseActivity {
             }
         });
 
-        rightItem.setVisibility(View.INVISIBLE);
-
         // 2. 取出 url， 加载网页
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
+
+        item = intent.getParcelableExtra("news_item");
 
         mWebView.loadUrl(url);
 
@@ -70,7 +91,42 @@ public class NewsDetailActivity extends BaseActivity {
 
         String title = intent.getStringExtra("title");
         navTitle.setText(title);
+
+        // 3. 收藏按钮
+        rightItem.setImageResource(R.mipmap.like_s);
+        // 未收藏
+        rightItem.setColorFilter(Color.WHITE);
+        isLiked = false;
+        for (NewsSubMoshi moshi: likeNews) {
+            if (moshi.newsId.equals(item.newsId)) {
+                // 已收藏的
+                rightItem.setColorFilter(Color.RED);
+                isLiked = true;
+            }
+        }
+
+        rightItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isLiked) {
+                    rightItem.setColorFilter(Color.WHITE);
+                    setUnLiked();
+                } else {
+                    rightItem.setColorFilter(Color.RED);
+                    setLiked();
+                }
+            }
+        });
     }
+
+    private void setLiked() {
+        likeDao.insert(item);
+    }
+
+    private void setUnLiked() {
+        likeDao.delete(item);
+    }
+
 
     @Override
     public void onBackPressed() {

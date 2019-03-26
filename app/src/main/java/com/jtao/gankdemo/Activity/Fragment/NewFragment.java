@@ -40,7 +40,7 @@ import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClickListener {
+public class NewFragment extends Fragment implements MainActivity.OnNewsItemClickListener {
 
     private static Context mContext;
 
@@ -112,6 +112,7 @@ public class NewFragment extends Fragment implements NewsAdapter.OnNewsItemClick
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("url", subItem.url);
         intent.putExtra("title", subItem.desc);
+        intent.putExtra("news_item", subItem);
         mContext.startActivity(intent);
     }
 

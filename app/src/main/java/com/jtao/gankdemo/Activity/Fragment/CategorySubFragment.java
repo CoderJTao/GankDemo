@@ -17,6 +17,7 @@ import com.jtao.gankdemo.Activity.Adapter.CategoryAdapter;
 import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
 import com.jtao.gankdemo.Activity.ItemDecoration.ItemSeparateLine;
 import com.jtao.gankdemo.Activity.ItemDecoration.NewsItemDecoration;
+import com.jtao.gankdemo.Activity.MainActivity;
 import com.jtao.gankdemo.Activity.Model.NewsMoshi;
 import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
 import com.jtao.gankdemo.Activity.Model.SearchItemMoshi;
@@ -37,7 +38,7 @@ import java.util.Random;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class CategorySubFragment extends Fragment implements NewsAdapter.OnNewsItemClickListener {
+public class CategorySubFragment extends Fragment implements MainActivity.OnNewsItemClickListener {
     private Context mContext;
 
     private List<NewsSubMoshi> itemsList = new ArrayList<>();
@@ -87,6 +88,7 @@ public class CategorySubFragment extends Fragment implements NewsAdapter.OnNewsI
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("url", subItem.url);
         intent.putExtra("title", subItem.desc);
+        intent.putExtra("news_item", subItem);
         mContext.startActivity(intent);
     }
 

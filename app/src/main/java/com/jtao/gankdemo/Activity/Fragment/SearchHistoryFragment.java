@@ -2,7 +2,6 @@ package com.jtao.gankdemo.Activity.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,20 +9,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jtao.gankdemo.Activity.CustomView.FlowLayout;
-import com.jtao.gankdemo.Activity.Database.HistoryDao;
-import com.jtao.gankdemo.Activity.Database.OpenHelper_history;
 import com.jtao.gankdemo.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

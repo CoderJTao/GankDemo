@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jtao.gankdemo.Activity.Fragment.NewFragment;
+import com.jtao.gankdemo.Activity.MainActivity;
 import com.jtao.gankdemo.Activity.Model.NewsMoshi;
 import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
 import com.jtao.gankdemo.R;
@@ -34,14 +35,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 1;
     private static final int TYPE_ITEMS  = 2;
 
-    // 定义一个接口
-    public interface OnNewsItemClickListener {
-        void onClickItem(NewsSubMoshi subItem);
-    }
     // 定义自己的属性
-    private OnNewsItemClickListener listener;
+    private MainActivity.OnNewsItemClickListener listener;
     // 写一个公共方法，传入listener
-    public void setOnItemClickListener(OnNewsItemClickListener listener) {
+    public void setOnItemClickListener(MainActivity.OnNewsItemClickListener listener) {
         this.listener = listener;
     }
 

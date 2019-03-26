@@ -1,30 +1,58 @@
 package com.jtao.gankdemo.Activity.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jtao.gankdemo.Activity.Adapter.LikeAdapter;
+import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
+import com.jtao.gankdemo.Activity.Database.LikeDao;
+import com.jtao.gankdemo.Activity.ItemDecoration.ItemSeparateLine;
+import com.jtao.gankdemo.Activity.ItemDecoration.NewsItemDecoration;
+import com.jtao.gankdemo.Activity.MainActivity;
+import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
+import com.jtao.gankdemo.Activity.NewsDetailActivity;
 import com.jtao.gankdemo.R;
 
-public class LikeFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+public class LikeFragment extends Fragment implements MainActivity.OnNewsItemClickListener {
 
     private Context mContext;
 
     private String TAG = this.getClass().toString();
 
-    public LikeFragment() {
+    private LikeDao likeDao;
 
-    }
+    private List<NewsSubMoshi> likeNews = new ArrayList<>();
+
+    private Unbinder unbinder;
+    @BindView(R.id.like_recyclerview)
+    RecyclerView mRecyclerView;
+
+    private LikeAdapter mAdapter;
+    private ItemSeparateLine mItemSeparateLine;
+
+    public LikeFragment() { }
 
     public static LikeFragment newInstance(Context context) {
         LikeFragment f = new LikeFragment();
         f.mContext = context;
+        f.likeDao = new LikeDao(context);
         return f;
     }
 
@@ -35,8 +63,68 @@ public class LikeFragment extends Fragment {
 
         Log.d(TAG, "onCreateView: ");
 
+        unbinder = ButterKnife.bind(this, view);
+
+        initView();
+
+        initData();
+
         return view;
     }
+
+    private void initView() {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(mContext);
+        ((LinearLayoutManager) manager).setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+
+        mRecyclerView.addItemDecoration(mItemSeparateLine = new ItemSeparateLine(mContext));
+
+        mAdapter = new LikeAdapter(mContext);
+        mAdapter.setOnItemClickListener(this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void initData() {
+        this.likeNews = likeDao.queryAll();
+
+        mAdapter.setData(this.likeNews);
+        mItemSeparateLine.setData(this.likeNews);
+    }
+
+    @Override
+    public void onClickItem(NewsSubMoshi subItem) {
+        Intent intent = new Intent(mContext, NewsDetailActivity.class);
+        intent.putExtra("url", subItem.url);
+        intent.putExtra("title", subItem.desc);
+        intent.putExtra("news_item", subItem);
+        mContext.startActivity(intent);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -48,6 +136,8 @@ public class LikeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        initData();
 
         Log.d(TAG, "onStart: ");
     }
@@ -98,7 +188,7 @@ public class LikeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
+        unbinder.unbind();
         Log.d(TAG, "onDestroyView: ");
     }
-
 }

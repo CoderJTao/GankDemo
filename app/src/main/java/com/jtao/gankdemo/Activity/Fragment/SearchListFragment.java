@@ -16,6 +16,7 @@ import com.jtao.gankdemo.Activity.Adapter.NewsAdapter;
 import com.jtao.gankdemo.Activity.Adapter.SearchAdapter;
 import com.jtao.gankdemo.Activity.ItemDecoration.ItemSeparateLine;
 import com.jtao.gankdemo.Activity.ItemDecoration.NewsItemDecoration;
+import com.jtao.gankdemo.Activity.Model.NewsSubMoshi;
 import com.jtao.gankdemo.Activity.Model.SearchItemMoshi;
 import com.jtao.gankdemo.Activity.NewsDetailActivity;
 import com.jtao.gankdemo.Activity.Util.NetworkService;
@@ -139,6 +140,17 @@ public class SearchListFragment extends Fragment implements SearchAdapter.Search
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("url", searchItem.url);
         intent.putExtra("title", searchItem.desc);
+
+        NewsSubMoshi item = new NewsSubMoshi();
+        item.newsId = searchItem.ganhuo_id;
+        item.desc = searchItem.desc;
+        item.type = searchItem.type;
+        item.url = searchItem.url;
+        item.who = searchItem.who;
+        item.publishedAt = searchItem.publishedAt;
+
+        intent.putExtra("news_item", item);
+
         mContext.startActivity(intent);
     }
 }
